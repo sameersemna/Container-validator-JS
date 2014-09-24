@@ -1,0 +1,160 @@
+<html>
+    <head>
+        <TITLE>Container Validator ISO 6346 JS</TITLE>
+        <META NAME="description" CONTENT="Cargo container validator ISO 6346 implemented in Javascript">
+        <META NAME="keywords" CONTENT="cargo, container, validator, javascript, php, iso 6346">
+        <META NAME="robot" CONTENT="index,follow">
+        <META name="revisit-after" content="1 month">
+        <META NAME="author" CONTENT="Sameer Shemna">
+        <META NAME="language" CONTENT="English">
+    
+        <link rel="shortcut icon" href="./img/favicon.ico" />
+        <script type="text/javascript" src="ContainerValidator.js"></script>
+        <style type="text/css">
+            *{
+                font-size: 105%;
+            }
+            body{
+                text-align: center;
+                font-family: Arial, Helvetica, sans-serif;                
+            }
+            div.wrap{
+                width:960px;
+                background: rgba(225,225,225,0.5);
+                margin: auto;
+                padding: 10px 20px;
+                text-align: left;
+            }
+            span.validator{color:red;}
+            textarea{width:100%; height: 200px;}
+            div.staticTestResult span{margin:5px 10px;}
+            h1,h2,h3,div.centerAlign{text-align: center;}
+        </style>
+    </head>
+    <body>
+        
+        <div class="wrap">
+            
+            <div class="centerAlign">
+                <img class="imgCenter" src="./img/container_red_128.png"/>
+            </div>
+            
+            <h1>Cargo container validator ISO 6346 in Javascript</h1>
+            
+            <h3>Download</h3>
+            
+            <div class="centerAlign">
+                <a href="#" title="Download at GitHub"><img src="./img/github.png"/></a>
+            </div>
+            
+            <h3>Static Demo</h3>
+            
+            <div class="content">
+                <div id="staticTests">
+                    
+                </div>
+            </div>
+            
+            <h3>Dynamic Demo</h3>
+            
+            <div class="content">
+                <label for="container1">Container Number: </label>
+                <input id="container1" type="text" value="TEXU4645646" onkeyup="checkValid(this)" maxlength="11"/>
+                <br/>
+                <span id="validator1" class="validator"></span>
+            </div>
+            
+            <h3>Generated Containers Demo</h3>
+            
+            <div class="content">
+                <textarea id="genContNos">                    
+                </textarea>
+            </div>
+            
+            <h3>Credits</h3>
+            
+            <table>
+                <tr>
+                    <td>Wonderpoint Software Pvt Ltd </td><td><a href="http://www.wonderpoint.com">wonderpoint.com</a></td>
+                </tr>
+                <tr>
+                    <td>Wikipedia : ISO 6346 </td><td><a href="http://en.wikipedia.org/wiki/ISO_6346">wikipedia.org</a></td>
+                </tr>
+                <tr>
+                    <td>PHP Script : Stormpat</td><td><a href="https://github.com/stormpat/Container-validator">github.com</a></td>
+                </tr>
+                <tr>
+                    <td>PHP JS</td><td><a href="http://phpjs.org">phpjs.org</a></td>
+                </tr>
+                <tr>
+                    <td>Icons </td><td><a href="http://www.fancyicons.com/free-icon/108/gis-gps-icon-set/free-container-red-icon-png/">fancyicons.com</a></td>
+                </tr>
+            </table>
+                        
+        </div>
+        
+        <script type="text/javascript">
+            var container1 = document.getElementById('container1');
+            var validator1 = document.getElementById('validator1');
+            
+            function getValidatorMessage(validator, containerNo){
+                var isvalid     = validator.isValid(containerNo);
+                var valMsgs     = validator.getErrorMessages();
+                var valMsgsTxt  = valMsgs.join(', ');
+                msg = isvalid;
+                if (msg == false) {
+                    msg+= ' : ' + valMsgsTxt + '.';
+                    if(valMsgs.indexOf('The check digit does not match') != -1){
+                        msg+= ' Check digit must be ' + validator.createCheckDigit(containerNo.substr(0,10)) + '.';
+                    }
+                }
+                
+                return msg;
+            }
+            
+            function checkValid(txt) {
+                if(txt.value != ''){                    
+                    var validator = new ContainerValidator();
+                    validator1.innerHTML = getValidatorMessage(validator, txt.value);
+                }else{
+                    validator1.innerHTML = 'Please enter Container Number';
+                }
+            }
+            checkValid(container1);
+            
+            function staticTest(){
+                var staticTests = document.getElementById('staticTests');
+                
+                var validator = new ContainerValidator();
+                
+                var generatedContainers = validator.generate('TEX','U', 0, 99);
+                var genContNos = document.getElementById('genContNos');
+                genContNos.innerHTML = generatedContainers.join(', ');
+                
+                
+                var container_numbers = ['TEXU3070079', 'TEXU3070070', 'TEXA3070079', 'TEXU307007', 'TEXU30700'];
+                var container_test_results = [];
+                
+                for(var i=0; i<container_numbers.length; i++){
+                    container_test_results.push(getValidatorMessage(validator, container_numbers[i]));
+                    
+                    var container = validator.validate(container_numbers[i]);
+                    console.log(container); // Array ( [0] => TEXU3070079 [1] => TEX [2] => U [3] => 307007 [4] => 9 )
+                }
+                
+                var testHTML = '';
+                for(var i=0; i<container_numbers.length; i++){
+                    testHTML+='<div class="staticTestResult"><span class="containerNo">('+i+') '+container_numbers[i]+'</span><span class="validator containerVal">'+container_test_results[i]+'</span></div>';
+                }
+                
+                staticTests.innerHTML = testHTML;
+                
+                console.warn(validator.getErrorMessages());
+                
+                //validator.isValid('TEXU3070079');// boolean true
+                //validator.isValid('TEXU3070070'); // boolean false
+            }
+            staticTest();
+        </script>
+    </body>
+</html>
