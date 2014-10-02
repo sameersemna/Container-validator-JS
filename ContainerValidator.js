@@ -1,6 +1,8 @@
 /**
  * Created by 
- * User: sameer
+ * User: Sameer Shemna 
+ * Website: www.sameershemna.com
+ * Email: sameersemna@gmail.com
  * Date: 16/9/14
  * Time: 6:39 PM
  * Ref for similar PHP Class: https://github.com/stormpat/Container-validator
