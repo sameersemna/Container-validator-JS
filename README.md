@@ -6,7 +6,7 @@ Cargo container validator ISO 6346 implemented in Javascript
 Demo
 ====
 
-[sameershemna.com](http://sameershemna.com/container_validator/)
+[container-validator.sameershemna.com](http://container-validator.sameershemna.com/)
 
 
 Install
