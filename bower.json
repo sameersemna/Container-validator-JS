@@ -1,0 +1,28 @@
+{
+  "name": "Container-validator-JS",
+  "version": "1.0.0",
+  "homepage": "http://container-validator.sameershemna.com/",
+  "authors": [
+    "Sameer Shemna <sameer@shemna.com>"
+  ],
+  "description": "Cargo container validator ISO 6346 implemented in Javascript",
+  "main": "ContainerValidator.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "cargo",
+    "container",
+    "validator",
+    "ISO",
+    "6346"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
