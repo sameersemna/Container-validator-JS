@@ -15,8 +15,11 @@ Install
 ```html
 <script type="text/javascript" src="ContainerValidator.js"></script>
 ```
+ 
+Install using Bower:
+====================
 
-Using Bower: bower install Container-validator-JS
+bower install Container-validator-JS
 
 
 Documentation
