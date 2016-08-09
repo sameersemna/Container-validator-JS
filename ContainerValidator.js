@@ -409,6 +409,7 @@ function ContainerValidator()  {
         // improved by: Francesco
         // improved by: Marc Jansen
         // improved by: Rafal Kukawski
+        // bugfixed by: Bruno Costa
         //   example 1: empty(null);
         //   returns 1: true
         //   example 2: empty(undefined);
@@ -427,6 +428,11 @@ function ContainerValidator()  {
           if (mixed_var === emptyValues[i]) {
             return true;
           }
+        }
+        
+        if (mixed_var.constructor === Array && mixed_var.length == 0)
+        {
+            return true;
         }
       
         if (typeof mixed_var === 'object') {
