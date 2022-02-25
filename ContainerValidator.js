@@ -36,8 +36,8 @@ function ContainerValidator()  {
         'J' : 20, 'K' : 21, 'L' : 23, 'M' : 24, 'N' : 25, 'O' : 26, 'P' : 27, 'Q' : 28, 'R' : 29,
         'S' : 30, 'T' : 31, 'U' : 32, 'V' : 34, 'W' : 35, 'X' : 36, 'Y' : 37, 'Z' : 38
     };
-    this.pattern = /^([A-Z]{3})(U|J|Z)(\d{6})(\d)$/;
-    this.patternWithoutCheckDigit = /^([A-Z]{3})(U|J|Z)(\d{6})$/;
+    this.pattern = /^([A-Z]{3})(A|B|D|E|K|U|J|Z)(\d{6})(\d)$/
+    this.patternWithoutCheckDigit = /^([A-Z]{3})(A|B|D|E|K|U|J|Z)(\d{6})$/
     this.errorMessages = [];
     this.ownerCode = [];
     this.productGroupCode;
